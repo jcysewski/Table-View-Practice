@@ -7,19 +7,34 @@
 //
 
 import UIKit
+// add table view data source and protocols
+class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate
+{
+    @IBOutlet weak var myTableView: UITableView!
+    var superheros = ["Batman", "Wonder Woman", "Superman", "Iron Man", "The Flash", "Deadpool"]
+    var realNames = ["Bruce Wayne", "Diana", "Clark Kent", "Tony Stark", "Barry Allen", "Wade Wilson"]
 
-class ViewController: UIViewController {
-
-    override func viewDidLoad() {
+    override func viewDidLoad()
+    {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        myTableView.dataSource = self
+        myTableView.delegate = self // these set the data source and delegate to the view controller(self)
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    //this function creates a cell that wil store your data on your table view
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
+    {
+        let myTableViewCell = myTableView.dequeueReusableCellWithIdentifier("myCell", forIndexPath: indexPath)
+        myTableViewCell.textLabel?.text = superheros[indexPath.row]
+        myTableViewCell.detailTextLabel?.text = realNames[indexPath.row]
+        return myTableViewCell
     }
-
+    
+    //sets the number of rows in the table view
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
+    {
+        return superheros.count // number of rows in the table view = number of strings in array superheros
+    }
 
 }
 
