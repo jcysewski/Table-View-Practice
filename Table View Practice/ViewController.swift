@@ -35,6 +35,71 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     {
         return superheros.count // number of rows in the table view = number of strings in array superheros
     }
+    //alows you to delete rows from the table view
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath)
+    {
+        if editingStyle == .Delete
+        {
+            superheros.removeAtIndex(indexPath.row)
+            realNames.removeAtIndex(indexPath.row)
+            myTableView.reloadData()
+        }
+    }
+    @IBAction func addButtonTapped(sender: AnyObject)
+    {
+        let myAlert = UIAlertController(title: "Add Superhero", message: nil, preferredStyle: .Alert)
+        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil)
+        myAlert.addAction(cancelAction)
+        
+        let addAction = UIAlertAction(title: "Add", style: .Default)
+        { (addAction) -> Void in
+            let superheroNameTextField = myAlert.textFields![0] as UITextField
+            let aliasNameTextField = myAlert.textFields![1] as UITextField
+            self.superheros.append(superheroNameTextField.text!)
+            self.realNames.append(aliasNameTextField.text!)
+            self.myTableView.reloadData()
+        }
+        
+        myAlert.addAction(addAction)
+        
+        
+        myAlert.addTextFieldWithConfigurationHandler
+        { (superheroTextField) -> Void in
+            superheroTextField.placeholder = "Add Superhero Name"
+        }
+        myAlert.addTextFieldWithConfigurationHandler
+            { (aliasTextField) -> Void in
+                aliasTextField.placeholder = "Add Real Name"
+        }
+        
+        
+        
+        self.presentViewController(myAlert, animated: true, completion: nil) //presents the alert view
+    }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
