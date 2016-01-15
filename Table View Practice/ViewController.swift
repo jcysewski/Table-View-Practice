@@ -21,34 +21,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         myTableView.delegate = self // these set the data source and delegate to the view controller(self)
     }
     
-    //this function creates a cell that wil store your data on your table view
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
-    {
-        let myTableViewCell = myTableView.dequeueReusableCellWithIdentifier("myCell", forIndexPath: indexPath)
-        myTableViewCell.textLabel?.text = superheros[indexPath.row]
-        myTableViewCell.detailTextLabel?.text = realNames[indexPath.row]
-        return myTableViewCell
-    }
-    
-    //sets the number of rows in the table view
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
-    {
-        return superheros.count // number of rows in the table view = number of strings in array superheros
-    }
-    //alows you to delete rows from the table view
-    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath)
-    {
-        if editingStyle == .Delete
-        {
-            superheros.removeAtIndex(indexPath.row)
-            realNames.removeAtIndex(indexPath.row)
-            myTableView.reloadData()
-        }
-    }
     @IBAction func addButtonTapped(sender: AnyObject)
     {
         let myAlert = UIAlertController(title: "Add Superhero", message: nil, preferredStyle: .Alert)
         let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil)
+        
         myAlert.addAction(cancelAction)
         
         let addAction = UIAlertAction(title: "Add", style: .Default)
@@ -76,6 +53,67 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         self.presentViewController(myAlert, animated: true, completion: nil) //presents the alert view
     }
+    
+    
+    @IBAction func editButtonTapped(sender: AnyObject)
+    {
+        myTableView.editing = !myTableView.editing
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    //this function creates a cell that wil store your data on your table view
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
+    {
+        let myTableViewCell = myTableView.dequeueReusableCellWithIdentifier("myCell", forIndexPath: indexPath)
+        myTableViewCell.textLabel?.text = superheros[indexPath.row]
+        myTableViewCell.detailTextLabel?.text = realNames[indexPath.row]
+        return myTableViewCell
+    }
+    
+    //sets the number of rows in the table view
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
+    {
+        return superheros.count // number of rows in the table view = number of strings in array superheros
+    }
+    //alows you to delete rows from the table view
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath)
+    {
+        if editingStyle == .Delete
+        {
+            superheros.removeAtIndex(indexPath.row)
+            realNames.removeAtIndex(indexPath.row)
+            myTableView.reloadData()
+        }
+    }
+
+    
+    func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool
+    {
+        return true // allows you to move rows
+    }
+    
+    
+    func tableView(tableView: UITableView, moveRowAtIndexPath sourceIndexPath: NSIndexPath, toIndexPath destinationIndexPath: NSIndexPath)
+    {
+            let superhero = superheros[sourceIndexPath.row]
+            superheros.removeAtIndex(sourceIndexPath.row)
+            superheros.insert(superhero, atIndex: destinationIndexPath.row)
+        
+            let alterEgo = realNames[sourceIndexPath.row]
+            realNames.removeAtIndex(sourceIndexPath.row)
+            realNames.insert(alterEgo, atIndex: destinationIndexPath.row)
+        }
 
 }
 

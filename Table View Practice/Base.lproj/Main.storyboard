@@ -61,6 +61,11 @@
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="WnU-40-fRP">
+                        <barButtonItem key="leftBarButtonItem" systemItem="edit" id="b1N-1h-JnY">
+                            <connections>
+                                <action selector="editButtonTapped:" destination="BYZ-38-t0r" id="SFy-1D-6OY"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" style="done" systemItem="add" id="MAn-vY-qjT">
                             <connections>
                                 <action selector="addButtonTapped:" destination="BYZ-38-t0r" id="GZe-Cg-gju"/>
